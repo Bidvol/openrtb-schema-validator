@@ -25,11 +25,11 @@ module.exports = {
     userrating: { type: 'string' },
     qagmediarating: { type: 'integer', enum: [1, 2, 3] },
     keywords: { type: 'string' },
-    livestream: { type: 'integer', enum: [1, 2] },
-    sourcerelationship: { type: 'integer', enum: [1, 2] },
+    livestream: { type: 'integer', enum: [0, 1] },
+    sourcerelationship: { type: 'integer', enum: [0, 1] },
     len: { type: 'integer' },
     language: { type: 'string' },
-    embeddable: { type: 'integer', enum: [1, 2] },
+    embeddable: { type: 'integer', enum: [0, 1] },
     data: { items: dataSchema },
     ext: { type: 'object' }
   }

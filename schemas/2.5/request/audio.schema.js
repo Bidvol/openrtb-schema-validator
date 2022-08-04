@@ -21,7 +21,7 @@ module.exports = {
     companiontype: { items: { type: 'integer', enum: [1, 2, 3] } },
     maxseq: { type: 'integer' },
     feed: { type: 'integer', enum: [1, 2, 3] },
-    stitched: { type: 'integer', enum: [1, 2] },
+    stitched: { type: 'integer', enum: [0, 1] },
     nvol: { items: { type: 'integer', enum: [0, 1, 2, 3, 4] } },
     ext: { type: 'object' }
   }
