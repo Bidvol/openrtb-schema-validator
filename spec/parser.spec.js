@@ -12,6 +12,18 @@ const basePayload = {
   ]
 }
 
+const invalidPayload = {
+  id: '1',
+  imp: [
+    {
+      id: '7',
+      banner: {
+        pos: [101, 102]
+      }
+    }
+  ]
+}
+
 function duplicate (obj) {
   return JSON.parse(JSON.stringify(obj))
 }
@@ -73,4 +85,35 @@ describe('2.5 request', function () {
     expect(data).to.deep.equal(origin)
     done()
   })
+
+  it('should pass validation with blacklist', function (done) {
+    const schema = schemas.request['2.5'].clone()
+    const requestParser = parser(schema, { blacklist: ['.imp.banner.pos'] })
+    const origin = duplicate(invalidPayload)
+
+    const { error } = requestParser.validate(origin)
+    if (error) return done(error)
+    done()
+  })
+
+  it('should pass validation with whitelist', function (done) {
+    const schema = schemas.request['2.5'].clone()
+    const requestParser = parser(schema, { whitelist: ['.id', '.imp.id'] })
+    const origin = duplicate(invalidPayload)
+
+    const { error } = requestParser.validate(origin)
+    if (error) return done(error)
+    done()
+  })
+
+  it('should fail validation without blacklist or whitelist', function (done) {
+    const schema = schemas.request['2.5'].clone()
+    const requestParser = parser(schema)
+    const origin = duplicate(invalidPayload)
+
+    const { error } = requestParser.validate(origin)
+    if (error) return done()
+    done(new Error('validation passed'))
+  })
+
 })
